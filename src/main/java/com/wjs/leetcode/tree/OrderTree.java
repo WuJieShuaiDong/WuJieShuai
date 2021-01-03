@@ -11,6 +11,7 @@ import java.util.*;
  * @Date: 2020/12/17 11:29 下午
  **/
 public class OrderTree {
+    List<List<Integer>> node = new ArrayList<List<Integer>>();
 
     /**
      * @param root 节点
@@ -190,31 +191,38 @@ public class OrderTree {
      * 层序遍历递归做法
      */
     public List<List<Integer>> level(TreeNode treeNode) {
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        if (treeNode != null) return res;
-        return levelOrderDg(treeNode,res,1);
+        level(treeNode,0);
+        return node;
     }
 
     /**
      * @param root
-     * @param res
+     * @param
      * @return
-     * 递归
+     * 递归 这个方法绝了
      */
-    public List<List<Integer>> levelOrderDg (TreeNode root, List<List<Integer>> res, Integer level) {
-        if (res.size() < level) {
-            res.add(new ArrayList<Integer>());
+    public void level(TreeNode root,int k){
+        if(root!=null){
+            if(node.size()<=k)
+                node.add(new ArrayList());
+            node.get(k).add(root.val);
+            level(root.left,k+1);
+            level(root.right,k+1);
         }
-        //将当前的节点值加入到当前层数，为什么减一，因为list的下标是从0开始，level是从1开始的
-        res.get(level - 1).add(root.val);
-        if (root.left != null) {
-            levelOrderDg(root.left,res,level + 1);
-        }
-        if (root.right != null) {
-            levelOrderDg(root.right,res,level + 1);
-        }
-        return res;
     }
 
-
+    TreeNode treeNode = new TreeNode();
+    public TreeNode increasingBST(TreeNode root) {
+        if (root == null) {
+            return treeNode;
+        }
+        return inOrder(root,treeNode);
     }
+
+    private TreeNode inOrder(TreeNode root, TreeNode treeNode) {
+        inOrder(root.left,treeNode.right);
+        treeNode = root.left;
+        inOrder(root.right,treeNode.right);
+        return treeNode;
+    }
+}
