@@ -121,8 +121,7 @@ public class OrderTree {
 
     /**
      * @param root
-     * @return
-     * 后序迭代遍历
+     * @return 后序迭代遍历
      */
     public List<Integer> postOrderIteration(TreeNode root) {
         List<Integer> res = new ArrayList<Integer>();
@@ -162,7 +161,7 @@ public class OrderTree {
      * 我们下面的算法是根据第k次循环一定是k层的元素，只要能保证这个点就行。
      * 这个算法根据数学归纳法可以证明。。。哈哈哈，
      */
-    public List<List<Integer>> levelOrder (TreeNode root, List<List<Integer>> res) {
+    public List<List<Integer>> levelOrder(TreeNode root, List<List<Integer>> res) {
         if (root == null) return res;
         Queue<TreeNode> queue = new ArrayDeque<TreeNode>();
         queue.offer(root);
@@ -179,7 +178,7 @@ public class OrderTree {
                     queue.offer(node.right);
                 }
             }
-         res.add(level);
+            res.add(level);
         }
         return res;
     }
@@ -187,42 +186,63 @@ public class OrderTree {
 
     /**
      * @param treeNode
-     * @return
-     * 层序遍历递归做法
+     * @return 层序遍历递归做法
      */
     public List<List<Integer>> level(TreeNode treeNode) {
-        level(treeNode,0);
+        level(treeNode, 0);
         return node;
     }
 
     /**
      * @param root
      * @param
-     * @return
-     * 递归 这个方法绝了
+     * @return 递归 这个方法绝了
      */
-    public void level(TreeNode root,int k){
-        if(root!=null){
-            if(node.size()<=k)
+    public void level(TreeNode root, int k) {
+        if (root != null) {
+            if (node.size() <= k)
                 node.add(new ArrayList());
             node.get(k).add(root.val);
-            level(root.left,k+1);
-            level(root.right,k+1);
+            level(root.left, k + 1);
+            level(root.right, k + 1);
         }
     }
 
     TreeNode treeNode = new TreeNode();
+
     public TreeNode increasingBST(TreeNode root) {
         if (root == null) {
             return treeNode;
         }
-        return inOrder(root,treeNode);
+        return inOrder(root, treeNode);
     }
 
     private TreeNode inOrder(TreeNode root, TreeNode treeNode) {
-        inOrder(root.left,treeNode.right);
+        inOrder(root.left, treeNode.right);
         treeNode = root.left;
-        inOrder(root.right,treeNode.right);
+        inOrder(root.right, treeNode.right);
         return treeNode;
+    }
+
+
+    //二叉树的锯齿遍历
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        level1(root, 0);
+        return node;
+    }
+
+    public void level1(TreeNode root, int k) {
+        if (root != null) {
+            if (node.size() <= k)
+                node.add(new ArrayList());
+            //奇数层头插法
+            if (k % 2 == 1) {
+                node.get(k).add(0, root.val);
+            } else {
+                node.get(k).add(root.val);
+            }
+            level(root.left, k + 1);
+            level(root.right, k + 1);
+        }
     }
 }

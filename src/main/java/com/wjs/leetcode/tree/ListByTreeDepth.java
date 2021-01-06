@@ -10,7 +10,7 @@ import java.util.Queue;
 
 /**
  * @version 1.0
- * @Description: 通过二叉树的深度创建列表，每个列表的长度代表该高度树节点的个数，值夜与之对应。
+ * @Description: 通过二叉树的深度创建列表，每个列表的长度代表该高度树节点的个数，值也与之对应。
  * 其实就是二叉树的层次遍历
  * @Author: WuJieShuaiDong
  * @Date: 2020/12/28 10:20 下午
